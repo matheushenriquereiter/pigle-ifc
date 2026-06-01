@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
-                        .requestMatchers("/login", "/register", "/list-users", "/register-success", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/home","/login", "/register", "/list-users", "/register-success", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

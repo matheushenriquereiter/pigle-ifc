@@ -9,6 +9,8 @@ import io.github.matheushenriquereiter.project.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ArticleService {
@@ -39,5 +41,11 @@ public class ArticleService {
         articleRepository.save(article);
 
         loggedUser.getArticles().add(article);
+    }
+
+    public List<ArticleDTO> findAll() {
+        List<Article> articleList = articleRepository.findAll();
+
+        return articleList.stream().map(Article::toDTO).toList();
     }
 }

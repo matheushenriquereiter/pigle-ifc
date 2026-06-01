@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class ArticleController {
@@ -53,5 +54,11 @@ public class ArticleController {
     @GetMapping("/add-article-success")
     public String addArticleSuccess(@Valid @ModelAttribute("articleForm") ArticleForm articleForm) {
         return "add-article-success";
+    }
+
+    @GetMapping("/list-articles")
+    public String listArticles(Model model) {
+        model.addAttribute("articles", articleService.findAll());
+        return "list-articles";
     }
 }

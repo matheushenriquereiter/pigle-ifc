@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>All Articles</title>
+</head>
+<body>
+
+<h1>Articles</h1>
+<p th:each="article : ${articles}" th:object="${article}">
+    <span th:text="*{id}"></span>
+    <span th:text="*{title}"></span>
+    <span th:text="*{resume}"></span>
+    <span th:each="user : *{users}" th:text="${user.name}"></span>
+</p>
+
+</body>
+</html>
