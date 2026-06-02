@@ -22,15 +22,6 @@ public class ArticleService {
         this.userRepository = userRepository;
     }
 
-    public ArticleDTO save(ArticleDTO articleDTO) {
-        if (articleDTO == null) {
-            throw new IllegalArgumentException("ArticleDTO is null");
-        }
-
-        articleRepository.save(articleDTO.toEntity());
-        return articleDTO;
-    }
-
     public void saveAndLinkToUser(ArticleForm articleForm, String userEmail) {
         User loggedUser = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
 

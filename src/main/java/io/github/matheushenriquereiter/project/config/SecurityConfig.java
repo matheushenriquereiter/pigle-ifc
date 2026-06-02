@@ -32,8 +32,13 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
-                        .requestMatchers("/home","/login", "/register", "/list-users", "/register-success", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/login", "/register", "/list-users", "/register-success", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .deleteCookies("jwt_token")
+                        .logoutSuccessUrl("/login")
+                )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

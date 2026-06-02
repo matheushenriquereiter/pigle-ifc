@@ -107,15 +107,4 @@ public class UserController {
     public String home() {
         return "home";
     }
-
-    @GetMapping("/logout")
-    public String logout(HttpServletResponse response) {
-        Cookie jwtCookie = new Cookie("jwt_token", null);
-        jwtCookie.setHttpOnly(true);
-        jwtCookie.setPath("/");
-        jwtCookie.setMaxAge(0);
-        response.addCookie(jwtCookie);
-
-        return "redirect:/login";
-    }
 }
