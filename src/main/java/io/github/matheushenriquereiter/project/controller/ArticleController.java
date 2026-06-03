@@ -61,4 +61,14 @@ public class ArticleController {
         model.addAttribute("articles", articleService.findAll());
         return "list-articles";
     }
+
+    @GetMapping("/list-user-articles")
+    public String listUserArticles(Model model, Principal principal) {
+        String loggedUserEmail = principal.getName();
+        User user = userService.getByEmail(loggedUserEmail);
+
+        model.addAttribute("userArticles", user.getArticles());
+
+        return "list-user-articles";
+    }
 }
