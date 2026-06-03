@@ -3,10 +3,10 @@ package io.github.matheushenriquereiter.project.controller;
 import io.github.matheushenriquereiter.project.dto.UserDTO;
 import io.github.matheushenriquereiter.project.model.LoginForm;
 import io.github.matheushenriquereiter.project.model.RegistrationForm;
+import io.github.matheushenriquereiter.project.model.User;
 import io.github.matheushenriquereiter.project.service.JwtService;
 import io.github.matheushenriquereiter.project.service.UserService;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping("/show-user")
     public String showUser(Model model, Principal principal) {
         String loggedUserEmail = principal.getName();
-        UserDTO loggedUser = userService.getByEmail(loggedUserEmail).toDTO();
+        UserDTO loggedUser = userService.getByEmail(loggedUserEmail);
         model.addAttribute("loggedUser", loggedUser);
 
         return "show-user";
@@ -57,8 +57,8 @@ public class UserController {
             return "register";
         }
 
-        UserDTO userDTO = new UserDTO(registrationForm.getName(), registrationForm.getEmail(), registrationForm.getPassword());
-        userService.save(userDTO.toEntity());
+        User user = new User(registrationForm.getName(), registrationForm.getEmail(), registrationForm.getPassword());
+        userService.register(user);
 
         redirectAttributes.addFlashAttribute("registrationForm", registrationForm);
 

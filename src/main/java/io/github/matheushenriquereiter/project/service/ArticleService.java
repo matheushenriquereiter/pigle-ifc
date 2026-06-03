@@ -22,13 +22,10 @@ public class ArticleService {
         this.userRepository = userRepository;
     }
 
-    public void saveAndLinkToUser(ArticleForm articleForm, String userEmail) {
-        User loggedUser = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+    public void createAndLinkToUser(ArticleForm articleForm, String userEmail) {
+        User loggedUser = userRepository.findByEmail(userEmail).orElseThrow(() -> new IllegalArgumentException("User not found with email: " + userEmail));
 
-        Article article = new Article();
-        article.setTitle(articleForm.getTitle());
-        article.setResume(articleForm.getResume());
-
+        Article article = new Article(articleForm.getTitle(), articleForm.getResume());
         articleRepository.save(article);
 
         loggedUser.getArticles().add(article);
@@ -38,5 +35,11 @@ public class ArticleService {
         List<Article> articleList = articleRepository.findAll();
 
         return articleList.stream().map(Article::toDTO).toList();
+    }
+
+    public List<ArticleDTO> findAllByUserEmail(String email) {
+        List<Article> userArticles = articleRepository.findAllByUsers_Email(email);
+
+        return userArticles.stream().map(Article::toDTO).toList();
     }
 }

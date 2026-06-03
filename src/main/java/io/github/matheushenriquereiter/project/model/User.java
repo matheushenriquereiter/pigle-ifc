@@ -29,12 +29,10 @@ public class User {
     private String password;
 
     @ManyToMany
-    @JoinTable(name = "user_article",
-            joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "article_id"))
+    @JoinTable(name = "user_article", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "article_id"))
     private Set<Article> articles = new HashSet<>();
 
-    public User(Long id, String name, String email, String password) {
-        this.id = id;
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -42,10 +40,8 @@ public class User {
 
     public UserDTO toDTO() {
         UserDTO dto = new UserDTO();
-        dto.setId(this.getId());
         dto.setName(this.getName());
         dto.setEmail(this.getEmail());
-        dto.setPassword(this.getPassword());
 
         return dto;
     }

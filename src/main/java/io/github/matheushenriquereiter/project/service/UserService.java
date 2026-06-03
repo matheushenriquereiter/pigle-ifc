@@ -27,11 +27,17 @@ public class UserService {
         return userList.stream().map(User::toDTO).toList();
     }
 
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(null);
+    public UserDTO getByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        if(user == null){
+            return null;
+        }
+
+        return user.toDTO();
     }
 
-    public void save(User user) {
+    public void register(User user) {
         if (user == null) {
             throw new IllegalArgumentException("UserDTO is null");
         }

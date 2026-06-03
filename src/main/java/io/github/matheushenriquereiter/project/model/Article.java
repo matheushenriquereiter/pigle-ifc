@@ -28,13 +28,12 @@ public class Article {
     @ManyToMany(mappedBy = "articles")
     private Set<User> users = new HashSet<>();
 
-    public Article(String title, String resume, Set<User> users) {
+    public Article(String title, String resume) {
         this.title = title;
         this.resume = resume;
-        this.users = users;
     }
 
     public ArticleDTO toDTO() {
-        return new ArticleDTO(this.getId(), this.getTitle(), this.getResume(), this.getUsers());
+        return new ArticleDTO(this.getTitle(), this.getResume());
     }
 }

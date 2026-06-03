@@ -1,12 +1,8 @@
 package io.github.matheushenriquereiter.project.controller;
 
 import io.github.matheushenriquereiter.project.dto.ArticleDTO;
-import io.github.matheushenriquereiter.project.dto.UserDTO;
-import io.github.matheushenriquereiter.project.model.Article;
 import io.github.matheushenriquereiter.project.model.ArticleForm;
-import io.github.matheushenriquereiter.project.model.User;
 import io.github.matheushenriquereiter.project.service.ArticleService;
-import io.github.matheushenriquereiter.project.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +17,9 @@ import java.util.List;
 
 @Controller
 public class ArticleController {
-    private final UserService userService;
     private final ArticleService articleService;
 
-    public ArticleController(UserService userService, ArticleService articleService) {
-        this.userService = userService;
+    public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 
@@ -44,7 +38,7 @@ public class ArticleController {
         }
 
         String loggedUserEmail = principal.getName();
-        articleService.saveAndLinkToUser(articleForm, loggedUserEmail);
+        articleService.createAndLinkToUser(articleForm, loggedUserEmail);
 
         redirectAttributes.addFlashAttribute("articleForm", articleForm);
 
@@ -65,9 +59,9 @@ public class ArticleController {
     @GetMapping("/list-user-articles")
     public String listUserArticles(Model model, Principal principal) {
         String loggedUserEmail = principal.getName();
-        User user = userService.getByEmail(loggedUserEmail);
+        List<ArticleDTO> userArticles = articleService.findAllByUserEmail(loggedUserEmail);
 
-        model.addAttribute("userArticles", user.getArticles());
+        model.addAttribute("userArticles", userArticles);
 
         return "list-user-articles";
     }
