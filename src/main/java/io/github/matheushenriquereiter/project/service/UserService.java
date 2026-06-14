@@ -59,4 +59,18 @@ public class UserService {
 
         return passwordEncoder.matches(rawPassword, user.getPassword());
     }
+
+    public void updateUser(UserDTO userDTO, User updatedUser) {
+        Optional<User> userOptional = userRepository.findByEmail(userDTO.getEmail());
+        if (userOptional.isEmpty()) {
+            throw new IllegalArgumentException("UserDTO is null");
+        }
+        User user = userOptional.get();
+
+        user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        user.setName(updatedUser.getName());
+        user.setEmail(updatedUser.getEmail());
+
+        userRepository.save(user);
+    }
 }

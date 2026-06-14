@@ -4,6 +4,7 @@ import io.github.matheushenriquereiter.project.dto.UserDTO;
 import io.github.matheushenriquereiter.project.model.LoginForm;
 import io.github.matheushenriquereiter.project.model.RegistrationForm;
 import io.github.matheushenriquereiter.project.model.User;
+import io.github.matheushenriquereiter.project.repository.UserRepository;
 import io.github.matheushenriquereiter.project.service.JwtService;
 import io.github.matheushenriquereiter.project.service.UserService;
 import jakarta.servlet.http.Cookie;
@@ -21,10 +22,12 @@ import java.security.Principal;
 public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
+    private final UserRepository userRepository;
 
-    public UserController(UserService userService, JwtService jwtService) {
+    public UserController(UserService userService, JwtService jwtService, UserRepository userRepository) {
         this.userService = userService;
         this.jwtService = jwtService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/list-users")
@@ -101,6 +104,35 @@ public class UserController {
         response.addCookie(jwtCookie);
 
         return "redirect:/home";
+    }
+
+    @GetMapping("/update-user")
+    public String updateUser(Model model, Principal principal) {
+        String loggedUserEmail = principal.getName();
+        UserDTO user = userService.getByEmail(loggedUserEmail);
+        RegistrationForm registrationForm = new RegistrationForm();
+
+        registrationForm.setName(user.getName());
+        registrationForm.setEmail(user.getEmail());
+
+        model.addAttribute("registrationForm", registrationForm);
+        return "update-user";
+    }
+
+    @PostMapping("/update-user")
+    public String updateUser(@Valid @ModelAttribute RegistrationForm registrationForm, BindingResult result, RedirectAttributes redirectAttributes, Principal principal) {
+        if  (result.hasErrors()) {
+            return "update-user";
+        }
+
+        String loggedUserEmail = principal.getName();
+        UserDTO user = userService.getByEmail(loggedUserEmail);
+        User updatedUser = new User(registrationForm.getName(), registrationForm.getEmail(), registrationForm.getPassword());
+        userService.updateUser(user, updatedUser);
+
+        redirectAttributes.addFlashAttribute("registrationForm", registrationForm);
+
+        return "redirect:register-success";
     }
 
     @GetMapping("/home")

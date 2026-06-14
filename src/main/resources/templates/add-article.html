@@ -18,6 +18,9 @@
     </label>
     <p th:if="${#fields.hasErrors('resume')}" th:errors="*{resume}"></p>
 
+    <label for="pdfFile">Select PDF:</label>
+    <input type="file" id="pdfFile" required />
+
     <br>
 
     <button type="submit">Add</button>
