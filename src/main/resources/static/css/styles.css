@@ -2,6 +2,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background: #93bbbb;
+}
+
+h1{
+    text-align: center;
+    color: #e5eaea;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header {
