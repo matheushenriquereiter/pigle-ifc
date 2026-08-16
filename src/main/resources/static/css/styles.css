@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: #fffefe;
+    background: #fdf8f8;
     font-family: "Arial Rounded MT Bold", Helvetica, sans-serif;
 }
 
@@ -38,7 +38,7 @@ nav a {
 }
 
 nav a:hover {
-    background: #95ff82;
+    background: #ffc019;
     color: #00000F;
     width: auto;
 }
@@ -96,4 +96,10 @@ input{
 
 a{
     color: #ffc019;
+}
+
+p{
+    color: #000000;
+    padding: 10px;
+    font-size: large;
 }

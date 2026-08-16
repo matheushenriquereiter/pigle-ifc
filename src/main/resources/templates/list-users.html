@@ -9,7 +9,8 @@
 
 <div th:replace="fragments/header :: header"></div>
 
-<h1>Users</h1>
+<h1>Usuários</h1>
+<hr/>
 <p th:each="user : ${users}" th:object="${user}">
     <span th:text="*{name}"></span>
     <span th:text="*{email}"></span>
