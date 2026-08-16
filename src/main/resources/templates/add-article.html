@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <title>Add Article</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+
 </head>
 <body>
+
+<div th:replace="fragments/header :: header"></div>
 
 <h1>Add Article</h1>
 <form role="form" method="POST" th:action="@{/add-article}" th:object="${articleForm}">
@@ -18,9 +22,6 @@
         <input type="text" id="resume" required th:field="*{resume}">
     </label>
     <p th:if="${#fields.hasErrors('resume')}" th:errors="*{resume}"></p>
-
-    <label for="pdfFile">Select PDF:</label>
-    <input type="file" id="pdfFile" required />
 
     <br>
 

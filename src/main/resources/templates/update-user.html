@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Update User</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 <body>
+
+<div th:replace="fragments/header :: header"></div>
 
 <h1>Update User</h1>
 <form role="form" method="POST" th:action="@{/update-user}" th:object="${registrationForm}">

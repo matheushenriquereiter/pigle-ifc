@@ -8,10 +8,13 @@
     <meta charset="UTF-8">
     <title>Add Article Success</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 <body>
 
 <div>
+    <div th:replace="fragments/header :: header"></div>
+
     <h1>Add Article Success</h1>
 
     <div th:object="${articleForm}">
