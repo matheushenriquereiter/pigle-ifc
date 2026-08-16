@@ -3,10 +3,14 @@
 <head>
     <title>All Users</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-</head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    </head>
 <body>
 
-<h1>Users</h1>
+<div th:replace="fragments/header :: header"></div>
+
+<h1>Usuários</h1>
+<hr/>
 <p th:each="user : ${users}" th:object="${user}">
     <span th:text="*{name}"></span>
     <span th:text="*{email}"></span>

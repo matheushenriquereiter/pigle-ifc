@@ -1,23 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <title>Home</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 <body>
-    <header class="header">
-        <div class="header-box">
-            <nav class="navbar">
-                <a th:href="@{/home}">Home</a>
-                <a th:href="@{/list-users}">List Users</a>
-                <a th:href="@{/add-article}">Add Article</a>
-                <a th:href="@{/list-articles}">List Articles</a>
-                <a th:href="@{/list-user-articles}">List User Articles</a>
-                <a th:href="@{/update-user}">Update User</a>
-                <a th:href="@{/logout}">Logout</a>
-            </nav>
-        </div>
-    </header>
+    <div th:replace="fragments/header :: header"></div>
 </body>
 </html>

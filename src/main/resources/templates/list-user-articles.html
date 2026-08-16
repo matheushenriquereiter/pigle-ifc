@@ -3,10 +3,14 @@
 <head>
     <title>User Articles</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 <body>
 
+<div th:replace="fragments/header :: header"></div>
+
 <h1>User Articles</h1>
+<hr/>
 <p th:each="userArticle : ${userArticles}" th:object="${userArticle}">
     <span th:text="*{title}"></span>
     <span th:text="*{resume}"></span>

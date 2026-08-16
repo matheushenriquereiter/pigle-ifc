@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+</head>
+<body>
+<header th:fragment="header" class="header">
+    <div class="header-box">
+        <nav class="navbar">
+            <a th:href="@{/home}">
+                <span class="material-symbols-outlined">home</span>
+                <span class="text"> Home</span>
+            </a>
+            <a th:href="@{/list-users}">
+                <span class="material-symbols-outlined">person_add</span>
+                <span class="text"> Usuários</span>
+            </a>
+            <a th:href="@{/add-article}">
+                <span class="material-symbols-outlined">note_add</span>
+                <span class="text"> Novo Artigo</span>
+            </a>
+            <a th:href="@{/list-articles}">
+                <span class="material-symbols-outlined">article</span>
+                <span class="text"> Artigos</span>
+            </a>
+            <a th:href="@{/list-user-articles}">
+                <span class="material-symbols-outlined">article_person</span>
+                <span class="text"> Meus Artigos</span>
+            </a>
+            <a th:href="@{/update-user}">
+                <span class="material-symbols-outlined">person_edit</span>
+                <span class="text"> Editar Usuário</span>
+            </a>
+            <a th:href="@{/logout}">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="text"> Sair</span>
+            </a>
+        </nav>
+    </div>
+</header>
+</body>
+</html>

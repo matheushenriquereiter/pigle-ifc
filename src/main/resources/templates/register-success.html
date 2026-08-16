@@ -17,6 +17,7 @@
     <div th:object="${registrationForm}">
         <p>Name:<strong th:text="*{name}"></strong></p>
         <p>Email: <strong th:text="*{email}"></strong></p>
+        <a th:href="@{/login}">Login Page</a>
     </div>
 </div>
 
