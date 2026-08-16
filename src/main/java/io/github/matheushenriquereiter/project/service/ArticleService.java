@@ -42,4 +42,10 @@ public class ArticleService {
 
         return userArticles.stream().map(Article::toDTO).toList();
     }
+
+    public ArticleDTO findByTitle(String title) {
+        List<Article> articleList = articleRepository.findByTitle(title);
+        Article article = articleList.get(0);
+        return article.toDTO();
+    }
 }

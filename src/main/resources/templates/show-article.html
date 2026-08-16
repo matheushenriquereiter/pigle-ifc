@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div>
+<div class="article">
+    <h1 th:text="${articleForm.title}">Título do Artigo</h1>
+    <br/>
+    <p th:text="${articleForm.resume}">Content</p>
+</div>
+</div>
+
+<br>
+</body>
+</html>
