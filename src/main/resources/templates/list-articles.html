@@ -14,6 +14,7 @@
 <p th:each="article : ${articles}" th:object="${article}">
     <span th:text="*{title}"></span>
     <span th:text="*{resume}"></span>
+    <span><a th:href="@{/show-article/{title}(title=${article.title})}"> Abrir</a></span>
 </p>
 
 </body>

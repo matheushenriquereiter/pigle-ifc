@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
     List<Article> findAllByUsers_Email(String email);
+
+    List<Article> findByTitle(String title);
 }
