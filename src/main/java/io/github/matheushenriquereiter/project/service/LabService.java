@@ -34,4 +34,10 @@ public class LabService {
 
         return labList.stream().map(Lab::toDTO).toList();
     }
+
+    public List<LabDTO> findAllByUserEmail(String email) {
+        List<Lab> userLabs = labRepository.findAllByUsers_Email(email);
+
+        return userLabs.stream().map(Lab::toDTO).toList();
+    }
 }

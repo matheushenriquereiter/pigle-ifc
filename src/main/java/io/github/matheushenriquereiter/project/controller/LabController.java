@@ -1,5 +1,7 @@
 package io.github.matheushenriquereiter.project.controller;
 
+import io.github.matheushenriquereiter.project.dto.ArticleDTO;
+import io.github.matheushenriquereiter.project.dto.LabDTO;
 import io.github.matheushenriquereiter.project.model.ArticleForm;
 import io.github.matheushenriquereiter.project.model.LabForm;
 import io.github.matheushenriquereiter.project.service.LabService;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class LabController {
@@ -47,5 +50,15 @@ public class LabController {
     @GetMapping("/add-lab-success")
     public String addLabSuccess(@Valid @ModelAttribute("labForm") LabForm labForm) {
         return "add-lab-success";
+    }
+
+    @GetMapping("/home")
+    public String listUserLabs(Model model, Principal principal) {
+        String loggedUserEmail = principal.getName();
+        List<LabDTO> userLabs = labService.findAllByUserEmail(loggedUserEmail);
+
+        model.addAttribute("userLabs", userLabs);
+
+        return "home";
     }
 }

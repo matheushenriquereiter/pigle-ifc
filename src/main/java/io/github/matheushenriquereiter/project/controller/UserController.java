@@ -134,9 +134,4 @@ public class UserController {
 
         return "redirect:register-success";
     }
-
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
 }

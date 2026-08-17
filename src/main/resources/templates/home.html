@@ -8,5 +8,13 @@
 </head>
 <body>
     <div th:replace="fragments/header :: header"></div>
+
+    <h1>Meus Laboratórios</h1>
+    <hr/>
+    <p th:each="userLab : ${userLabs}" th:object="${userLab}">
+        <span th:text="*{name}"></span>
+        <span th:text="*{location}"></span>
+        <span th:text="*{subject}"></span>
+    </p>
 </body>
 </html>
