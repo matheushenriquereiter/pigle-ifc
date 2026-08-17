@@ -32,6 +32,10 @@ public class User {
     @JoinTable(name = "user_article", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "article_id"))
     private Set<Article> articles = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "user_lab", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "lab_id"))
+    private Set<Lab> labs = new HashSet<>();
+
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;

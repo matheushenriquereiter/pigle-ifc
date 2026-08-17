@@ -1,0 +1,27 @@
+<!--/*@thymesVar id="articleForm" type="io.github.matheushenriquereiter.project.model.ArticleForm"*/-->
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Add Lab Success</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div>
+    <h1>Add Lab Success</h1>
+
+    <div th:object="${labForm}">
+        <p>Name:<strong th:text="*{name}"></strong></p>
+        <p>Location: <strong th:text="*{location}"></strong></p>
+        <p>Subject: <strong th:text="*{subject}"></strong></p>
+    </div>
+</div>
+
+</body>
+</html>

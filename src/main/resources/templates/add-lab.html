@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Laboratory</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<h1>Add Laboratory</h1>
+<form role="form" method="POST" th:action="@{/add-lab}" th:object="${labForm}">
+    <label for="name">Name:
+        <input type="text" id="name" required th:field="*{name}">
+    </label>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+    <label for="location">Location:
+        <input type="text" id="location" required th:field="*{location}">
+    </label>
+    <p th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
+
+    <label for="subject">Subject:
+        <input type="text" id="subject" required th:field="*{subject}">
+    </label>
+
+    <p th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></p>
+
+    <br>
+
+    <button type="submit">Add</button>
+</form>
+
+</body>
+</html>
