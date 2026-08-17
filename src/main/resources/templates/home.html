@@ -9,12 +9,14 @@
 <body>
     <div th:replace="fragments/header :: header"></div>
 
-    <h1>Meus Laboratórios</h1>
+    <h1>Laboratories</h1>
     <hr/>
-    <p th:each="userLab : ${userLabs}" th:object="${userLab}">
-        <span th:text="*{name}"></span>
-        <span th:text="*{location}"></span>
-        <span th:text="*{subject}"></span>
-    </p>
+    <div class="container">
+        <div class="labs" th:each="userLab : ${userLabs}" th:object="${userLab}">
+            <h2><span th:text="*{name}"></span></h2>
+            <h3><span th:text="*{location}"></span></h3>
+            <h3><span th:text="*{subject}"></span></h3>
+        </div>
+    </div>
 </body>
 </html>
