@@ -1,6 +1,5 @@
 package io.github.matheushenriquereiter.project.model;
 
-import io.github.matheushenriquereiter.project.dto.ArticleDTO;
 import io.github.matheushenriquereiter.project.dto.LabDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +29,9 @@ public class Lab {
     @ManyToMany(mappedBy = "labs")
     private Set<User> users = new HashSet<>();
 
+    @OneToMany(mappedBy = "lab")
+    private Set<Item> items = new HashSet<>();
+
     public Lab(String name, String location, String subject) {
         this.name = name;
         this.location = location;
@@ -39,7 +41,4 @@ public class Lab {
     public LabDTO toDTO() {
         return new LabDTO(this.getName(), this.getLocation(), this.getSubject());
     }
-
-
-
 }
