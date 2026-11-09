@@ -83,10 +83,55 @@ public class ItemController {
                 .findById(id)
                 .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, "Lab not found"));
 
-        Item item = new Item(itemForm.getName(), itemForm.getDescription());
+        Item item = new Item(itemForm.getName(), itemForm.getLocation(), itemForm.getDescription());
         item.setLab(lab);
         itemRepository.save(item);
 
         return "redirect:/items/" + id;
+    }
+
+    @GetMapping("/{labId}/update/{itemId}")
+    public String updateItem(@PathVariable Integer labId, @PathVariable Integer itemId, Model model) {
+        Item item = itemRepository
+                .findById(itemId)
+                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, "Item not found"));
+
+        ItemForm itemForm = new ItemForm(item.getName(), item.getLocation(), item.getDescription());
+        model.addAttribute("itemForm", itemForm);
+        model.addAttribute("labId", labId);
+        model.addAttribute("itemId", itemId);
+
+        return "update-item";
+    }
+
+    @PostMapping("/{labId}/update/{itemId}")
+    public String processUpdateItem(@PathVariable Integer labId, @PathVariable Integer itemId, @Valid @ModelAttribute("itemForm") ItemForm itemForm, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("labId", labId);
+            model.addAttribute("itemId", itemId);
+            return "update-item";
+        }
+
+        Item item = itemRepository
+                .findById(itemId)
+                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, "Item not found"));
+
+        item.setName(itemForm.getName());
+        item.setLocation(itemForm.getLocation());
+        item.setDescription(itemForm.getDescription());
+        itemRepository.save(item);
+
+        return "redirect:/items/" + labId;
+    }
+
+    @GetMapping("/{labId}/delete/{itemId}")
+    public String deleteItem(@PathVariable Integer labId, @PathVariable Integer itemId) {
+        Item item = itemRepository
+                .findById(itemId)
+                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, "Item not found"));
+
+        itemRepository.delete(item);
+
+        return "redirect:/items/" + labId;
     }
 }

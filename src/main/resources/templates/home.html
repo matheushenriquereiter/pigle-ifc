@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -18,6 +18,14 @@
                 <h3><span th:text="*{location}"></span></h3>
                 <h3><span th:text="*{subject}"></span></h3>
             </a>
+            <div class="actions">
+                <a th:href="@{/update-lab/{id}(id=*{id})}">
+                    <button type="button">Update</button>
+                </a>
+                <a th:href="@{/delete-lab/{id}(id=*{id})}">
+                    <button type="button">Delete</button>
+                </a>
+            </div>
         </div>
     </div>
 </body>

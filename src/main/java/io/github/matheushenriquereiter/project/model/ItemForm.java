@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class ItemForm {
     private String name;
+    private String location;
     private String description;
 }

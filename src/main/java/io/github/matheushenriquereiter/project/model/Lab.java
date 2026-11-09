@@ -29,7 +29,7 @@ public class Lab {
     @ManyToMany(mappedBy = "labs")
     private Set<User> users = new HashSet<>();
 
-    @OneToMany(mappedBy = "lab")
+    @OneToMany(mappedBy = "lab", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Item> items = new HashSet<>();
 
     public Lab(String name, String location, String subject) {

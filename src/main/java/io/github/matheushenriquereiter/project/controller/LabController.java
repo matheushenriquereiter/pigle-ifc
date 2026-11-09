@@ -1,8 +1,6 @@
 package io.github.matheushenriquereiter.project.controller;
 
-import io.github.matheushenriquereiter.project.dto.ArticleDTO;
 import io.github.matheushenriquereiter.project.dto.LabDTO;
-import io.github.matheushenriquereiter.project.model.ArticleForm;
 import io.github.matheushenriquereiter.project.model.LabForm;
 import io.github.matheushenriquereiter.project.service.LabService;
 import jakarta.validation.Valid;
@@ -11,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -60,5 +59,35 @@ public class LabController {
         model.addAttribute("userLabs", userLabs);
 
         return "home";
+    }
+
+    @GetMapping("/update-lab/{id}")
+    public String updateLab(@PathVariable Integer id, Model model) {
+        LabDTO lab = labService.findById(id);
+        LabForm labForm = new LabForm(lab.getName(), lab.getLocation(), lab.getSubject());
+
+        model.addAttribute("labForm", labForm);
+        model.addAttribute("labId", id);
+
+        return "update-lab";
+    }
+
+    @PostMapping("/update-lab/{id}")
+    public String processUpdateLab(@PathVariable Integer id, @Valid @ModelAttribute("labForm") LabForm labForm, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("labId", id);
+            return "update-lab";
+        }
+
+        labService.updateLab(id, labForm);
+
+        return "redirect:/home";
+    }
+
+    @GetMapping("/delete-lab/{id}")
+    public String deleteLab(@PathVariable Integer id) {
+        labService.deleteById(id);
+
+        return "redirect:/home";
     }
 }

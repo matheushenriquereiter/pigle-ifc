@@ -17,6 +17,11 @@
     </label>
     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 
+    <label for="location">Location:
+        <input type="text" id="location" required th:field="*{location}">
+    </label>
+    <p th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
+
     <label for="description">Description:
         <input type="text" id="description" required th:field="*{description}">
     </label>

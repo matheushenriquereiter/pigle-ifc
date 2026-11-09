@@ -19,7 +19,16 @@
     <div class="container">
         <div class="labs" th:each="item : ${labItems}" th:object="${item}">
             <h2><span th:text="*{name}"></span></h2>
+            <h3><span th:text="*{location}"></span></h3>
             <h3><span th:text="*{description}"></span></h3>
+            <div class="actions">
+                <a th:href="@{/items/{labId}/update/{itemId}(labId=${lab.id}, itemId=*{id})}">
+                    <button type="button">Update</button>
+                </a>
+                <a th:href="@{/items/{labId}/delete/{itemId}(labId=${lab.id}, itemId=*{id})}">
+                    <button type="button">Delete</button>
+                </a>
+            </div>
         </div>
     </div>
 </body>

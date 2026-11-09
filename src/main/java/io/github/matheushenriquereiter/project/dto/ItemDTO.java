@@ -10,6 +10,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ItemDTO {
+    private Long id;
     private String name;
+    private String location;
     private String description;
+
+    public ItemDTO(String name, String location, String description) {
+        this.name = name;
+        this.location = location;
+        this.description = description;
+    }
 }
