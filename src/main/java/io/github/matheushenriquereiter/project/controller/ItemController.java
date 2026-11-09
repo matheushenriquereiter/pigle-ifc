@@ -4,6 +4,7 @@ import io.github.matheushenriquereiter.project.dto.ItemDTO;
 import io.github.matheushenriquereiter.project.dto.LabIdDTO;
 import io.github.matheushenriquereiter.project.exceptions.BusinessException;
 import io.github.matheushenriquereiter.project.model.Item;
+import io.github.matheushenriquereiter.project.model.ItemForm;
 import io.github.matheushenriquereiter.project.model.Lab;
 import io.github.matheushenriquereiter.project.repository.ItemRepository;
 import io.github.matheushenriquereiter.project.repository.LabRepository;
@@ -11,9 +12,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -37,8 +38,55 @@ public class ItemController {
 
         List<Item> labItems = itemRepository.findAllByLab(lab);
 
-        List<ItemDTO> labItemDTOs = labItems.stream().map(labItem -> new ItemDTO(labItem.getName(), labItem.getLocation(), labItem.getDescription())).toList();
+        List<ItemDTO> labItemDTOs = labItems.stream().map(Item::toDTO).toList();
 
         return ResponseEntity.ok(labItemDTOs);
+    }
+
+    @GetMapping("/{id}")
+    public String showLabItems(@PathVariable Integer id, Model model) {
+        Lab lab = labRepository
+                .findById(id)
+                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, "Lab not found"));
+
+        List<Item> labItems = itemRepository.findAllByLab(lab);
+
+        List<ItemDTO> labItemDTOs = labItems.stream().map(Item::toDTO).toList();
+
+        model.addAttribute("lab", lab.toDTO());
+        model.addAttribute("labItems", labItemDTOs);
+
+        return "list-items";
+    }
+
+    @GetMapping("/{id}/add")
+    public String addItem(@PathVariable Integer id, Model model) {
+        labRepository
+                .findById(id)
+                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, "Lab not found"));
+
+        ItemForm itemForm = new ItemForm();
+        model.addAttribute("itemForm", itemForm);
+        model.addAttribute("labId", id);
+
+        return "add-item";
+    }
+
+    @PostMapping("/{id}/add")
+    public String processAddItem(@PathVariable Integer id, @Valid @ModelAttribute("itemForm") ItemForm itemForm, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("labId", id);
+            return "add-item";
+        }
+
+        Lab lab = labRepository
+                .findById(id)
+                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, "Lab not found"));
+
+        Item item = new Item(itemForm.getName(), itemForm.getDescription());
+        item.setLab(lab);
+        itemRepository.save(item);
+
+        return "redirect:/items/" + id;
     }
 }

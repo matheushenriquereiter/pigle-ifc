@@ -39,6 +39,6 @@ public class Lab {
     }
 
     public LabDTO toDTO() {
-        return new LabDTO(this.getName(), this.getLocation(), this.getSubject());
+        return new LabDTO(this.getId(), this.getName(), this.getLocation(), this.getSubject());
     }
 }

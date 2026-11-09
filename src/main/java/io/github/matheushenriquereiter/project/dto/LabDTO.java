@@ -10,7 +10,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LabDTO {
+    private Long id;
     private String name;
     private String location;
     private String subject;
+
+    public LabDTO(String name, String location, String subject) {
+        this.name = name;
+        this.location = location;
+        this.subject = subject;
+    }
 }

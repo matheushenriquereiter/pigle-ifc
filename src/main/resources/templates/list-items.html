@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>Laboratory Items</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <h1 th:text="${lab.name}">Items</h1>
+    <div>
+        <a th:href="@{/items/{id}/add(id=${lab.id})}" style="text-decoration: none;">
+            <button type="button">New Item</button>
+        </a>
+    </div>
+    <hr/>
+    <div class="container">
+        <div class="labs" th:each="item : ${labItems}" th:object="${item}">
+            <h2><span th:text="*{name}"></span></h2>
+            <h3><span th:text="*{description}"></span></h3>
+        </div>
+    </div>
+</body>
+</html>

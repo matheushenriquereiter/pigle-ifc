@@ -11,6 +11,5 @@ import lombok.Setter;
 @Setter
 public class ItemDTO {
     private String name;
-    private String location;
     private String description;
 }

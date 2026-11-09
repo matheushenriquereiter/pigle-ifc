@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Item</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<h1>Add Item</h1>
+<form role="form" method="POST" th:action="@{/items/{id}/add(id=${labId})}" th:object="${itemForm}">
+    <label for="name">Name:
+        <input type="text" id="name" required th:field="*{name}">
+    </label>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+    <label for="description">Description:
+        <input type="text" id="description" required th:field="*{description}">
+    </label>
+    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+
+    <br>
+
+    <button type="submit">Add</button>
+</form>
+
+</body>
+</html>

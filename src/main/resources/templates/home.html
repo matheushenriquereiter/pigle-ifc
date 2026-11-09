@@ -13,9 +13,11 @@
     <hr/>
     <div class="container">
         <div class="labs" th:each="userLab : ${userLabs}" th:object="${userLab}">
-            <h2><span th:text="*{name}"></span></h2>
-            <h3><span th:text="*{location}"></span></h3>
-            <h3><span th:text="*{subject}"></span></h3>
+            <a th:href="@{/items/{id}(id=*{id})}">
+                <h2><span th:text="*{name}"></span></h2>
+                <h3><span th:text="*{location}"></span></h3>
+                <h3><span th:text="*{subject}"></span></h3>
+            </a>
         </div>
     </div>
 </body>
